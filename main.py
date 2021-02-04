@@ -18,9 +18,9 @@ translate_regions = {
 	"ionia": "Ionia",
 	"noxus": "Noxus",
 	"piltoverzaun": "Piltover & Zaun",
-	"shadowisles": "Shadow Isles",
-	"bilgewater": "Bilgewater",
-	"targon": "Targon"
+	"shadowisles": "Ilhas das Sombras",
+	"bilgewater": "Águas de Sentina",
+	"targon": "Monte Targon"
 }
 
 total_champions = {
@@ -103,13 +103,16 @@ with open('input.csv') as csv_file:
 			for champion in data['champions']:
 				total_champions[champion] += 1
 
-with open('output_regions.csv', mode='w', newline='') as regions_file:
+total_regions = {k: v for k, v in sorted(total_regions.items(), key=lambda item: item[1])[::-1]}
+total_champions = {k: v for k, v in sorted(total_champions.items(), key=lambda item: item[1])[::-1]}
+
+with open('output_regions.csv', mode='w', newline='', encoding='utf-8') as regions_file:
 	regions_writer = csv.writer(regions_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
 	for region in total_regions:
 		regions_writer.writerow([translate_regions[region], total_regions[region]])
 
-with open('output_champions.csv', mode='w', newline='') as champions_file:
+with open('output_champions.csv', mode='w', newline='', encoding='utf-8') as champions_file:
 	champions_writer = csv.writer(champions_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
 	for champion in total_champions:
