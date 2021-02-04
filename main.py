@@ -1,3 +1,4 @@
+import sys
 import csv
 import requests
 
@@ -11,7 +12,6 @@ total_regions = {
 	"bilgewater": 0,
 	"targon": 0
 }
-
 translate_regions = {
 	"demacia": "Demacia",
 	"freljord": "Freljord",
@@ -74,7 +74,6 @@ total_champions = {
 	"Viktor": 0,
 	"Aphelios": 0
 }
-
 translate_champions = {
 	"MissFortune": "Miss Fortune",
 	"LeeSin": "Lee Sin",
@@ -83,38 +82,41 @@ translate_champions = {
 	"TahmKench": "Tahm Kench",
 }
 
-decks = []
+def readFromCsvFile(import_filename):
+	with open(import_filename) as csv_file:
+		csv_reader = csv.reader(csv_file, delimiter=',')
 
-with open('input.csv') as csv_file:
-	csv_reader = csv.reader(csv_file, delimiter=',')
-	for row in csv_reader:
-		for deck in row[2:]:
-			if (deck == ''):
-				print('Encontrado um deck vazio pelo jogador {0}.'.format(row[0]))
-				continue
+		for row in csv_reader:
+			for deck in row[2:]:
+				if (deck == ''):
+					print('Um deck vazio encontrado pelo jogador {0}.'.format(row[0]))
+					continue
+				
+				r = requests.get('https://escolaruneterra.herokuapp.com/deck/decode?deck={0}&locale=pt_br'.format(deck))
+				if (r.status_code == 200):
+					data = r.json()
 
-			r = requests.get('https://escolaruneterra.herokuapp.com/deck/decode?deck={0}&locale=pt_br'.format(deck))
-			if (r.status_code == 200):
-				data = r.json()
+					for region in data['regions']:
+						total_regions[region] += 1
 
-			for region in data['regions']:
-				total_regions[region] += 1
+					for champion in data['champions']:
+						total_champions[champion] += 1
 
-			for champion in data['champions']:
-				total_champions[champion] += 1
+def exportToCsvFile(export_filename, total, translate):
+	with open(export_filename, mode='w', newline='', encoding='utf-8') as csv_file:
+		csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-total_regions = {k: v for k, v in sorted(total_regions.items(), key=lambda item: item[1])[::-1]}
-total_champions = {k: v for k, v in sorted(total_champions.items(), key=lambda item: item[1])[::-1]}
+		for item in total:
+			csv_writer.writerow([translate[item] if item in translate else item, total[item]])
 
-with open('output_regions.csv', mode='w', newline='', encoding='utf-8') as regions_file:
-	regions_writer = csv.writer(regions_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+def sortGreater(total):
+	return {k: v for k, v in sorted(total.items(), key=lambda item: item[1])[::-1]}
 
-	for region in total_regions:
-		regions_writer.writerow([translate_regions[region], total_regions[region]])
-
-with open('output_champions.csv', mode='w', newline='', encoding='utf-8') as champions_file:
-	champions_writer = csv.writer(champions_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-	for champion in total_champions:
-		if (total_champions[champion] > 0):
-			champions_writer.writerow([translate_champions[champion] if champion in translate_champions else champion, total_champions[champion]])
+if (len(sys.argv) != 4):
+	print('Precisa-se dos nomes do arquivo de entrada e dos arquivos de saída.')
+else:
+	readFromCsvFile(sys.argv[1])
+	total_champions = sortGreater(total_champions)
+	total_regions = sortGreater(total_regions)
+	exportToCsvFile(sys.argv[2], total_champions, translate_champions)
+	exportToCsvFile(sys.argv[3], total_regions, translate_regions)
