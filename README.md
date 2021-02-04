@@ -21,3 +21,12 @@
 <p>
   <strong>Output:</strong> dois arquivos .csv, um com a relação das regiões usadas ao longo do campeonato e um com os campeões mais populares do campeonato.
 </p>
+
+<h2>Uso</h2>
+
+<p>
+  Após instalar o pacote requests, precisa-se de um arquivo <strong>input.csv</strong> exatamente no mesmo diretório e a partir daí escreva:
+  <table>
+    <thead><th>python main.py</th></thead>
+  </table>
+</p>
