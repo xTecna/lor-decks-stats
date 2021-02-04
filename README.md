@@ -1,7 +1,7 @@
 <h1 align="center">LoR Decks Stats</h1>
 
 <p>
-  Script rápido e fácil em <strong>Python</strong> para coletar decks e extrair estatísticas como a quantidade de vezes que um região foi representada e a quantidade de vezes que um campeão apareceu no deck.
+  Script rápido e fácil em <strong>Python 3.5+</strong> para coletar decks e extrair estatísticas como a quantidade de vezes que um região foi representada e a quantidade de vezes que um campeão apareceu no deck.
 </p>
 
 <h2 align="center">Requisitos</h2>
