@@ -27,6 +27,13 @@
 <p>
   Após instalar o pacote requests, escreva:
   <table>
-    <thead><th>python main.py [caminho do arquivo de entrada] [caminho do arquivo de saída de campeões] [caminho do arquivo de saída de regiões]</th></thead>
+    <thead><th>python main.py [arquivo de entrada] [arquivo de saída de campeões] [arquivo de saída de regiões]</th></thead>
+  </table>
+</p>
+
+<p>
+  Exemplo:
+  <table>
+    <thead><th>python main.py input.csv output_champions.csv output_regions.csv</th></thead>
   </table>
 </p>
