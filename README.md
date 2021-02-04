@@ -25,8 +25,8 @@
 <h2>Uso</h2>
 
 <p>
-  Após instalar o pacote requests, precisa-se de um arquivo <strong>input.csv</strong> exatamente no mesmo diretório e a partir daí escreva:
+  Após instalar o pacote requests, escreva:
   <table>
-    <thead><th>python main.py</th></thead>
+    <thead><th>python main.py [caminho do arquivo de entrada] [caminho do arquivo de saída de campeões] [caminho do arquivo de saída de regiões]</th></thead>
   </table>
 </p>
