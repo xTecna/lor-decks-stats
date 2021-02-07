@@ -10,8 +10,10 @@ let converted_count_champions = [];
 function generateStats(){
 	const inputElement = document.getElementById('stats_file');
 	const offsetElement = document.getElementById('offset');
+	const limitElement = document.getElementById('limit');
 	const contentElement = document.getElementById('content');
 	const offset = offsetElement.value;
+	const limit = limitElement.value;
 
 	count_regions = {};
 	count_champions = {};
@@ -26,7 +28,7 @@ function generateStats(){
 
 			for (let i = 0; i < players.length; ++i){
 				let decks = players[i];
-				decks = decks.slice(offset);
+				decks = decks.slice(offset, offset + limit);
 
 				for (let j = 0; j < decks.length; ++j){
 					let deck = decks[j];
