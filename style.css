@@ -1,0 +1,256 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+
+	background-color: #1A1A1A;
+
+	font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+	text-align: center;
+	color: teal;
+}
+
+#content {
+	grid-area: content;
+}
+
+#formulario {
+	grid-area: header;
+}
+
+footer {
+	grid-area: footer;
+}
+
+#site {
+	width: 100%;
+	height: 100%;
+
+	margin-top: 20px;
+
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 6fr 1fr;
+
+	grid-template-areas: 
+	"header"
+	"content"
+	"footer";
+}
+
+#formulario
+{
+	width: 100%;
+	color: #ffffff;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+#formulario > .row {
+	display: flex;
+	flex-direction: row;
+}
+
+#formulario input {
+	border-radius: 10px;
+	padding: 5px 10px;
+
+	border: 0;
+	outline: 0;
+
+	font-style: italic;
+	margin-top: 5px;
+
+	transition: 0.5s;
+}
+
+#formulario label {
+	margin-left: 10px;
+}
+
+#formulario select {
+	margin-left: 10px;
+	margin-top: 2px;
+}
+
+#formulario input:hover{
+	background-color: #353535;
+	color: white;
+}
+
+#offset{
+	width: 50px;
+}
+
+#decks_input {
+	width: 800px;
+
+	padding: 0 5px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+#decks_input input {
+	margin: 0 5px;
+}
+
+#decks_buttons {
+	width: 50px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.button {
+	margin-top: 20px;
+	background-color: transparent;
+	border: 1px solid darkcyan;
+	color: white;
+
+	transition: 0.5s;
+	cursor: pointer;
+
+	font-size: 1.1rem;
+}
+
+#check_decks:hover{
+	background-color: darkcyan;
+}
+
+#regras {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+
+	border: 1px solid darkcyan;
+	height: 30px;
+	padding: 5px;
+}
+
+#regras input[type=checkbox]{
+	margin: 5px 10px 0 5px;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 750px;
+	background-color: black;
+	color: #fff;
+	border-radius: 6px;
+
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+#check_decks {
+	border-radius: 30px;
+	width: 300px;
+	height: 50px;
+}
+
+/* -------------  Content ----------------------------- */
+
+#content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+table {
+	width: 300px;
+	color: #ffffff;
+}
+
+thead>tr>:nth-child(1){
+	text-align: left;
+}
+
+thead>tr>:nth-child(2){
+	text-align: right;
+}
+
+tbody>tr>:nth-child(2){
+	text-align: right;
+}
+
+/* -------------  Footer ----------------------------- */
+
+footer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	color: rgb(207, 207, 207);
+}
+
+footer > h5 {
+	margin: 0;
+}
+
+footer a {
+	text-decoration: none;
+	color: rgb(123, 80, 224);
+
+	transition: 0.5s;
+}
+
+footer a:hover{
+	color: teal;
+}
+
+@media(max-width:360px){
+	#site {
+		width: 100%;
+		height: 100%;
+	
+		margin-top: 20px;
+	
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 10% 1fr 0.02fr;
+	
+		grid-template-areas: 
+		"header"
+		"content"
+		"footer";
+	}
+
+	#formulario > .row {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.card
+	{
+		width: 90%;
+	}
+
+	#decks {
+		margin-top: 20px;
+	}
+}
