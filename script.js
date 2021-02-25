@@ -12,28 +12,29 @@ function generateStats(){
 	const offsetElement = document.getElementById('offset');
 	const limitElement = document.getElementById('limit');
 	const contentElement = document.getElementById('content');
-	const offset = offsetElement.value;
-	const limit = limitElement.value;
+	const offset = parseInt(offsetElement.value);
+	const limit = parseInt(limitElement.value);
 
 	count_regions = {};
 	count_champions = {};
 	converted_count_regions = [];
 	converted_count_champions = [];
 
-	renderLoading();
+	renderLoading(0);
 
 	Papa.parse(inputElement.files[0], {
 		complete: async function(results) {
 			const players = results.data;
+			const num_steps = players.length * limit;
 
 			for (let i = 0; i < players.length; ++i){
-				let decks = players[i];
-				decks = decks.slice(offset, offset + limit);
+				const decks = players[i];
+				const onlyDecks = decks.slice(offset, offset + limit);
 
-				for (let j = 0; j < decks.length; ++j){
-					let deck = decks[j];
+				for (let j = 0; j < onlyDecks.length; ++j){
+					const deck = onlyDecks[j];
 
-					if (deck){
+					if (deck && deck !== ''){
 						const response = await fetch(`https://escolaruneterra.herokuapp.com/deck/decode?deck=${deck}&locale=pt_br`);
 
 						if (response.ok){
@@ -67,6 +68,8 @@ function generateStats(){
 								}
 							}
 						}
+
+						renderLoading(100 * ((i * limit) + j)/num_steps);
 					}
 				}
 			}
@@ -82,10 +85,10 @@ function generateStats(){
 	});
 }
 
-function renderLoading(){
+function renderLoading(progress){
 	const contentElement = document.getElementById('content');
 
-	contentElement.innerHTML = '<h1><i class="fa fa-spinner fa-spin fa-fw"></i> Loading...</h1>';
+	contentElement.innerHTML = `<h1><i class="fa fa-spinner fa-spin fa-fw"></i> Loading... (${progress.toFixed(2)}%)</h1>`;
 }
 
 function translateRegion(region){
