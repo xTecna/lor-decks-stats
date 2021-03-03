@@ -101,6 +101,7 @@ function translateRegion(region){
 		case 'shadowisles':		return 'Shadow Isles';
 		case 'bilgewater':		return 'Bilgewater';
 		case 'targon':			return 'Mount Targon';
+		case 'shurima':			return 'Shurima';
 	}
 }
 
@@ -111,6 +112,7 @@ function translateChampion(champion){
 		case 'TwistedFate':		return 'Twisted Fate';
 		case 'TahmKench':		return 'Tahm Kench';
 		case 'AurelionSol':		return 'Aurelion Sol';
+		case 'Leblanc':			return 'LeBlanc';
 		default:				return champion;
 	}
 }
